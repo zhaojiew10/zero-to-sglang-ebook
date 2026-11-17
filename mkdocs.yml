@@ -1,0 +1,94 @@
+site_name: Zero to SGLang 推理引擎教程
+site_description: 从推理基础、mini-sglang 到 SGLang 进阶技术与开源贡献的中文书面教程
+site_author: Datawhale × RadixArk（原课程）；本书为重组阅读版
+site_url: !ENV [MKDOCS_SITE_URL, ""]
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+plugins:
+  - search:
+      lang:
+        - en
+        - zh
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+extra_css:
+  - resources/style.css
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+nav:
+  - 电子书首页: index.md
+  - 阅读与实践指南: guide.md
+  - 第一部分 · 推理基础:
+      - 本部分导读: parts/part01.md
+      - 第 1 章 LLM 入门: chapters/ch01.md
+      - 第 2 章 推理入门: chapters/ch02.md
+      - 第 3 章 GPU 入门: chapters/ch03.md
+      - 第 4 章 KV Cache：推理的核心数据结构: chapters/ch04.md
+      - 第 5 章 Benchmark：指标与实验方法: chapters/ch05.md
+  - 第二部分 · 构建 mini-sglang:
+      - 本部分导读: parts/part02.md
+      - 第 6 章 mini-sglang：推理引擎长什么样: chapters/ch06.md
+      - 第 7 章 一个请求的旅程: chapters/ch07.md
+      - 第 8 章 前向与生成: chapters/ch08.md
+      - 第 9 章 KV Cache 优化: chapters/ch09.md
+      - 第 10 章 HTTP 服务与并发请求: chapters/ch10.md
+      - 第 11 章 Continuous Batching 与调度: chapters/ch11.md
+      - 第 12 章 Paged KV Cache 与显存管理: chapters/ch12.md
+      - 第 13 章 RadixAttention 与前缀缓存: chapters/ch13.md
+      - 第 14 章 多进程与张量并行: chapters/ch14.md
+      - 第 15 章 投机解码: chapters/ch15.md
+  - 第三部分 · 进阶推理技术:
+      - 本部分导读: parts/part03.md
+      - 第 16 章 注意力后端: chapters/ch16.md
+      - 第 17 章 量化与低精度推理: chapters/ch17.md
+      - 第 18 章 分层缓存: chapters/ch18.md
+      - 第 19 章 横向扩展：DP Attention、EP、PP: chapters/ch19.md
+      - 第 20 章 Prefill-Decode 分离: chapters/ch20.md
+  - 第四部分 · 部署、分析与开源贡献:
+      - 本部分导读: parts/part04.md
+      - 第 21 章 用 Cookbook 部署 SGLang: chapters/ch21.md
+      - 第 22 章 Profiling 与 Trace 分析: chapters/ch22.md
+      - 第 23 章 SGLang PR 工作流: chapters/ch23.md
+  - SGLang 术语表: glossary.md
+  - 资料来源、许可与版本: sources.md

@@ -1,0 +1,272 @@
+[
+  {
+    "chapter": "ch01",
+    "path": "../resources/video/v001/frame-00233.png",
+    "alt": "课程幻灯片以“加权求和器”解释注意力机制：左侧说明人类注意力的启发，右侧给出用不同权重对信息加权求和的公式，强调注意力为不同信息分配重要性。",
+    "caption": "注意力并不是简单地平均汇聚上下文，而是根据相关性分配权重后再求和。这个加权求和视角是理解 Transformer 信息交换与后续 KV Cache 设计的基础。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P01]第01章 LLM入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 233.39
+  },
+  {
+    "chapter": "ch02",
+    "path": "../resources/video/v002/frame-00235.png",
+    "alt": "Prefill 计算特征教学页，标题指出搬运约 16GB 显存可支撑约 43 万亿次运算；页面列出模型权重、KV 写入量和计算量，并将其归为 Compute-Bound。",
+    "caption": "Prefill 在一次权重读取后对整段 Prompt 的多个位置并行计算，因而具有较高的算术强度。图中用权重与 KV 数据搬运量对照计算量，说明其更容易受计算能力限制。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P02]第02章 推理入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 235.26
+  },
+  {
+    "chapter": "ch02",
+    "path": "../resources/video/v002/frame-00425.png",
+    "alt": "Roofline 优化方法教学页，左侧流程图依次展示获取硬件参数、分析计算任务和对比瓶颈，右侧分别列出 Prefill 与 Decode 的优化方向。",
+    "caption": "Roofline 的用途是先判定负载落在计算受限还是访存受限区域，再选择优化手段。图中把硬件拐点、任务算术强度和具体推理阶段串成可执行的诊断流程。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P02]第02章 推理入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 425.0
+  },
+  {
+    "chapter": "ch03",
+    "path": "../resources/video/v003/frame-00399.png",
+    "alt": "GPU 存储金字塔教学页，左侧为 GPU 芯片与存储层次示意图，右侧依次列出寄存器、共享内存、L2 缓存和 HBM2e 显存的容量及访问特点。",
+    "caption": "GPU 内存层次体现了速度与容量的权衡：越靠近计算核心，访问越快但容量越小。理解寄存器、共享内存、L2 与 HBM 的位置，有助于分析数据局部性和显存带宽瓶颈。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P03]第03章 GPU入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 399.22
+  },
+  {
+    "chapter": "ch04",
+    "path": "../resources/video/v004/frame-00126.png",
+    "alt": "Prefill 阶段 KV Cache 构建教学页，中央展示从整段 Prompt 经过模型各层生成初始 KV Cache 的流程图，右侧说明一次性计算所有位置的 Q、K、V。",
+    "caption": "Prefill 对整段 Prompt 做一次前向计算，并在每一层写入初始 Key/Value 缓存。它建立了后续 Decode 可复用的历史上下文，避免每生成一个 token 都重算整段前缀。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P04]第04章 推理的核心数据结构入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 126.78
+  },
+  {
+    "chapter": "ch04",
+    "path": "../resources/video/v004/frame-00155.png",
+    "alt": "Decode 阶段 KV Cache 更新教学页，左侧流程图展示新 token 的 K、V 追加到各层缓存，右侧列出仅计算新位置并读取全部历史 KV 的步骤。",
+    "caption": "Decode 每轮只处理最新 token：把新的 K/V 追加到缓存，再让当前 Query 对全部历史 Key/Value 进行注意力计算。两图合看可区分 Prefill 的“批量建缓存”和 Decode 的“增量追加、历史读取”。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P04]第04章 推理的核心数据结构入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 155.0
+  },
+  {
+    "chapter": "ch05",
+    "path": "../resources/video/v005/frame-00124.png",
+    "alt": "单请求物理时间轴教学页，中央时间图标出 TTFT、TPOT、ITL 和 E2E，右侧分别解释首 token 延迟、相邻 token 间隔与端到端延迟的关系。",
+    "caption": "一次请求的延迟不能只用总时长概括。TTFT 描述首个 token 到达前的等待，TPOT/ITL 描述后续生成节奏，E2E 则覆盖完整请求，为 Benchmark 指标选择提供统一时间轴。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P05]第05章 Benchmark入门_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 124.93
+  },
+  {
+    "chapter": "ch06",
+    "path": "../resources/video/v006/frame-00300.png",
+    "alt": "mini-sglang 控制路径与数据路径分离教学页，左侧为 Text Prompt 经 Tokenizer、Model Runner 与 Detokenizer 到 Response 的处理链路图，右侧对比调度控制与张量计算职责。",
+    "caption": "mini-sglang 将“这一轮算什么”的控制决策与“张量怎样计算”的数据路径分开。该划分让请求调度、状态同步和模型执行各守边界，是理解推理引擎整体架构的关键。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P06]第06章 mini-sglang：推理引擎长什么样_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 300.0
+  },
+  {
+    "chapter": "ch07",
+    "path": "../resources/video/v007/frame-00170.png",
+    "alt": "mini-sglang 请求流转全图，流程从 API Server 经 Tokenizer 进入 Scheduler 与 Engine，再由 Detokenizer 返回 API Server，并标出异步增量回传与进程内调度关系。",
+    "caption": "请求在系统中经历接收、分词、排队调度、模型前向、采样、反分词和流式返回。图中同时呈现闭环数据流与组件边界，可作为逐站阅读源码时的路线图。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P07]第07章 一个请求的旅程_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 170.0
+  },
+  {
+    "chapter": "ch07",
+    "path": "../resources/video/v007/frame-00470.png",
+    "alt": "Logits 到 Token ID 的采样分支图，左侧对比 Greedy 直接取 argmax 与温度采样先缩放 logits、再经 Softmax 按概率抽取的两条路径。",
+    "caption": "模型前向产生的是 logits，还需要采样策略才能确定下一个 token。Greedy 每轮选择最高分项，温度采样则保留随机性；采样结果随后进入反分词与下一轮生成。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P07]第07章 一个请求的旅程_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 470.06
+  },
+  {
+    "chapter": "ch08",
+    "path": "../resources/video/v008/frame-00252.png",
+    "alt": "自回归因果掩码教学页，左侧用注意力矩阵和网格图展示未来位置被屏蔽，右侧解释上三角区域置为负无穷后 Softmax 权重归零的过程。",
+    "caption": "因果掩码禁止当前位置读取未来 token，从而维持自回归生成的单向依赖。它将不允许的注意力logit置为负无穷，使 Softmax 后对应权重为零。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P08]第08章 前向与生成_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 252.1
+  },
+  {
+    "chapter": "ch09",
+    "path": "../resources/video/v009/frame-00147.png",
+    "alt": "无 KV Cache 的重复计算推演页，中央示意图比较序列从两个 token 增长到四个 token 时注意力矩阵与 K/V 投影的重复生成，右侧列出逐步重复操作。",
+    "caption": "没有缓存时，序列每增加一个 token，历史位置的 K/V 投影也会随整段前向重新计算。图中的增量对照直观展示了 KV Cache 要消除的重复工作。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P09]第09章 KVCache优化_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 147.89
+  },
+  {
+    "chapter": "ch10",
+    "path": "../resources/video/v010/frame-00246.png",
+    "alt": "HTTP 服务异步通信拓扑图，Detokenizer 通过共享 ZeroMQ 通道发送结果，API Server 监听并按 UID 将内容分发给多个独立等待的请求消费者。",
+    "caption": "共享结果通道配合 UID 分发，使单个 Detokenizer 的输出能够回到正确的并发请求。API Server 的异步监听与等待让网络服务不必为每个请求串行阻塞。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P10]第10章 HTTP服务与并发_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 246.72
+  },
+  {
+    "chapter": "ch11",
+    "path": "../resources/video/v011/frame-00195.png",
+    "alt": "Continuous Batching 调度时间线，多个请求以不同颜色排列在逐轮迭代网格中；请求 A 离场后，等待中的请求 C 立即补入后续批次。",
+    "caption": "连续批处理以单次迭代而不是完整请求为调度粒度。某请求结束就释放槽位，新请求可在下一轮补位，因此无需等待整批最长请求结束，减少了固定批处理的空转。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P11]第11章 ContinuousBatching与调度_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 195.0
+  },
+  {
+    "chapter": "ch11",
+    "path": "../resources/video/v011/frame-00241.png",
+    "alt": "mini-sglang normal_loop 调度主循环图，流程依次连接接收请求、调度组批、Engine 前向、更新请求状态以及结果回传等环节。",
+    "caption": "调度器每轮都要完成收信、选择本轮工作、执行一步前向和更新收尾。该闭环把连续批处理的时间线落实到具体控制流程，也解释了请求状态为何需要逐轮维护。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P11]第11章 ContinuousBatching与调度_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 241.73
+  },
+  {
+    "chapter": "ch12",
+    "path": "../resources/video/v012/frame-00150.png",
+    "alt": "KV Cache 外部碎片教学页，显存条带中已用块与空闲块交错分布；右侧示例说明总空闲量足够时，仍可能因缺少连续空间而无法分配。",
+    "caption": "连续预留要求一段完整地址空间，分散的空闲区域即使总量足够也无法直接满足大块申请。外部碎片由此造成显存名义充足却分配失败，是分页管理要解决的问题。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P12]第12章 PagedKVCache与显存管理_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 150.02
+  },
+  {
+    "chapter": "ch12",
+    "path": "../resources/video/v012/frame-00285.png",
+    "alt": "Paged KV Cache 逻辑到物理映射图，以 50 个 token、Block Size 16 为例，将逻辑块映射到分散的物理块 12、7、42 和 3，并展示 Block Table 与槽位关系。",
+    "caption": "分页缓存让逻辑上连续的 token 序列落到不连续的物理块中，Block Table 负责记录映射。显存分配因而可以按块进行，不必为整个请求寻找一大段连续空间。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P12]第12章 PagedKVCache与显存管理_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 285.0
+  },
+  {
+    "chapter": "ch13",
+    "path": "../resources/video/v013/frame-00320.png",
+    "alt": "Radix Tree 节点分裂示例，请求 B 与已有请求共享前缀 101、11、12；原路径在分叉处拆成共享父节点和两个分别保存后续 token 的分支。",
+    "caption": "当新请求只复用已有路径的一部分时，Radix Tree 在公共前缀末尾执行 split。共享前缀保留在父节点，不同后缀进入各自分支，从而同时表达复用与分歧。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P13]第13章 RadixAttention与前缀缓存_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 320.0
+  },
+  {
+    "chapter": "ch13",
+    "path": "../resources/video/v013/frame-00345.png",
+    "alt": "Radix Tree 多级分支教学图，请求 C 到达后公共前缀进一步缩短，已有节点再次分裂，形成包含多个请求后缀的多层树形拓扑。",
+    "caption": "随着更多请求插入，路径压缩的树会按实际公共前缀逐步形成多级分支。匹配过程沿树寻找最长可复用前缀，之后只需为未命中的后缀分配和计算 KV。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P13]第13章 RadixAttention与前缀缓存_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 345.0
+  },
+  {
+    "chapter": "ch14",
+    "path": "../resources/video/v014/frame-00345.png",
+    "alt": "Column Parallel 权重切分教学页，中央展示注意力层与 MLP 的矩阵切分布局，右侧说明输入复制到各卡、输出按列分片以及对应的注意力头划分。",
+    "caption": "列并行切分线性层的输出维：各 rank 接收相同输入，但只负责一部分输出通道。它与注意力头和 MLP 中间维的天然分块相契合，并与行并行及 All-Reduce 配合完成前向。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P14]第14章 多进程与张量并行_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 345.0
+  },
+  {
+    "chapter": "ch15",
+    "path": "../resources/video/v015/frame-00160.png",
+    "alt": "投机解码双模型协作教学页，左右两栏分别描述 Target Model 负责质量验证与 Draft Model 负责快速起草候选 token 的角色分工。",
+    "caption": "投机解码用小型草稿模型快速提出多个候选，再由目标模型集中验证。最终输出仍由目标模型的分布约束，加速来自减少目标模型的串行调用，而不是绕过其质量把关。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P15]第15章 投机解码_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 160.25
+  },
+  {
+    "chapter": "ch15",
+    "path": "../resources/video/v015/frame-00215.png",
+    "alt": "Greedy Verification 示意图，用 token 对齐网格展示连续接受草稿前缀、首次分歧处由目标模型纠正，以及全部接受时额外产生 bonus token 的情况。",
+    "caption": "贪心验证从前往后比较草稿与目标模型选择，只提交连续一致的前缀；首次不一致即截断并纠正。若全部候选都被接受，还可多提交一个目标模型给出的 bonus token。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P15]第15章 投机解码_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 215.0
+  },
+  {
+    "chapter": "ch16",
+    "path": "../resources/video/v016/frame-00370.png",
+    "alt": "FlashInfer 双阶段架构图，Plan 阶段对全局请求与 KV 布局做一次规划，Run 阶段按层重复执行注意力计算，右侧分别解释准备与复用职责。",
+    "caption": "FlashInfer 将请求级规划与逐层执行分开：Plan 预先组织调度信息，多个 Transformer 层复用规划结果并执行 Run。这样避免每层重复做相同的全局准备工作。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P16]第16章 注意力后端_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 370.17
+  },
+  {
+    "chapter": "ch17",
+    "path": "../resources/video/v017/frame-00145.png",
+    "alt": "量化精度直觉教学页，左侧用 FP16、FP8 和 INT4 三把不同刻度的尺子比较数值表示，右侧以圆周率示例说明比特减少带来的舍入误差。",
+    "caption": "低位宽用更少的离散刻度覆盖数值范围，因此存储与搬运成本下降，但舍入误差通常增大。图中的刻度对照把位宽、分辨率与精度损失放在同一视觉框架中。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P17]第17章 量化与低精度推理_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 145.0
+  },
+  {
+    "chapter": "ch18",
+    "path": "../resources/video/v018/frame-00407.png",
+    "alt": "HiCache 分层缓存课程总览页，左下方架构图把 GPU HBM、主机内存与外部存储组织为多级缓存，右侧表格比较各层容量和访问特性。",
+    "caption": "HiCache 将热数据留在 GPU，把较冷前缀扩展到主机内存乃至外部存储，并在需要时恢复。分层设计用访问延迟换取更大的有效缓存容量，缓解长前缀无法全部驻留显存的问题。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P18]第18章 分层缓存_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 407.5
+  },
+  {
+    "chapter": "ch19",
+    "path": "../resources/video/v019/frame-00485.png",
+    "alt": "横向扩展课程总览页，下方 TP 层内通信图显示两个 GPU 的 Attention 分片与 FFN 分片之间需要 All-Reduce，页面上方列出 DP-Attention、EP 和 PP 等扩展方式。",
+    "caption": "张量并行能拆分单层计算，却也引入频繁的层内集合同步。横向扩展需要结合 DP-Attention、专家并行和流水线并行，在请求分工、专家分布与层间切分之间权衡通信开销。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P19]第19章 横向扩展_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 485.5
+  },
+  {
+    "chapter": "ch20",
+    "path": "../resources/video/v020/frame-00195.png",
+    "alt": "Prefill-Decode 分离课程总览页，对照表列出 Prefill 的 Compute-Bound 特征与 Decode 的 Memory-Bound 特征，并说明 P 节点、D 节点及 RDMA 高速 KV 传输。",
+    "caption": "Prefill 与 Decode 的资源诉求不同，混合部署容易互相干扰。PD 分离让两类阶段在独立节点上扩缩容，再通过 RDMA 传输 KV Cache，以数据通路换取更灵活的调度与资源匹配。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P20]第20章 PrefillDecode分离_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 195.5
+  },
+  {
+    "chapter": "ch21",
+    "path": "../resources/video/v021/frame-00260.png",
+    "alt": "用 Cookbook 部署 SGLang 的课程总览页，汇总 Recipe 选择、硬件与模型参数、服务启动和功能验证，并给出从 Recipe 到可用服务的流程。",
+    "caption": "Cookbook 将部署经验整理为可复用 Recipe：先按模型和硬件选择配置，再启动服务并验证接口。它把零散的命令与参数组织成可重复执行的部署路径。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P21]第21章 用Cookbook部署SGLang_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 260.5
+  },
+  {
+    "chapter": "ch22",
+    "path": "../resources/video/v022/frame-00296.png",
+    "alt": "Profiling 与 Trace 分析课程总览页，对比 Benchmark 的结果指标和 Profiling 的内部证据，列出 PyTorch Profiler、Chrome Trace、Viewer 以及 PR13587 优化案例。",
+    "caption": "Benchmark 告诉我们性能是否达标，Profiling 与 Trace 则帮助解释时间花在哪里。结合 CPU 事件、GPU Kernel 和时间线 Viewer，才能把性能症状转化为可验证的优化假设。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P22]第22章 Profiling与Trace分析_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 296.5
+  },
+  {
+    "chapter": "ch23",
+    "path": "../resources/video/v023/frame-00079.png",
+    "alt": "SGLang PR 工作流课程总览页，涵盖 Fork、特性分支、明确问题与 RFC、CI 门禁矩阵、Review 往返以及面向开源核心贡献者的协作要求。",
+    "caption": "一个 PR 从问题定义开始，经分支开发、自动化 CI 与 Review 反馈逐步走向合并。清晰的复现材料、聚焦的改动和及时响应评审，是进入 SGLang 开源协作流程的基本功。",
+    "source_type": "原课程视频帧",
+    "source_file": "[P23]第23章 SGLangPR工作流_[BV1Y7Wd6rEhp].mp4",
+    "timestamp_seconds": 79.5
+  }
+]
