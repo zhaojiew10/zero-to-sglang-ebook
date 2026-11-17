@@ -2,6 +2,10 @@
 
 这是基于 **Datawhale × RadixArk** 的 [zero-to-sglang](https://github.com/datawhalechina/zero-to-sglang) 原课程重组的独立阅读版，采用与长篇源码教程一致的组织方式：**4 个部分、23 章**，与全 23 讲视频对应，同时结合原课程的概念文档和代码走读。它不是新的官方版本，也不替代原项目。
 
+## 在线阅读
+
+**[https://zhaojiew10.github.io/zero-to-sglang-ebook/](https://zhaojiew10.github.io/zero-to-sglang-ebook/)**
+
 ## 阅读入口
 
 - [电子书首页](docs/index.md)
